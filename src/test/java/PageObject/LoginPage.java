@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 	WebDriver ldriver;
-
+	public String actualUser="DemoUser123";
 	public LoginPage(WebDriver rdriver)
 	{
 		ldriver=rdriver;
@@ -51,6 +51,12 @@ public class LoginPage {
 
 	public WebElement getSigninBtn() {
 		return signinBtn;
+	}
+	//get text of Hello DemoUser
+	@FindBy(xpath="//span[@id='nav-link-accountList-nav-line-1']") WebElement demo;
+
+	public WebElement getDemo() {
+		return demo;
 	}
 	
 	

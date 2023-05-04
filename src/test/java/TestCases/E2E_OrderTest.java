@@ -29,7 +29,7 @@ public class E2E_OrderTest extends BaseTest {
 	TestData tdata ;
 
 	@Test
-	public void LoginFunctionality() throws Exception
+	public void placeOrder() throws Exception
 	{
 		tdata =new TestData();
 		lpage=new LoginPage(driver);
@@ -40,14 +40,8 @@ public class E2E_OrderTest extends BaseTest {
 		lpage.getContinueBtn().click();
 		lpage.getPassword().sendKeys(tdata.password);
 		lpage.getSigninBtn().click();
-     e.test.log(Status.INFO,"Login successfully");
-	}
-	@Test
-	public void placeOrder() throws InterruptedException
-	{
+		e.test.log(Status.INFO,"Login successfully");
 		order=new OrderPage(driver);
-		//click on search Box
-
 		order.getSearchBox().sendKeys(order.product,Keys.ENTER);
 		//enter MinValue
 		order.getMinValue().click();
@@ -59,50 +53,65 @@ public class E2E_OrderTest extends BaseTest {
 		//click on go
 		order.getGo().click();
 
-		JavascriptExecutor js= (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,800)");
+		//		JavascriptExecutor js= (JavascriptExecutor) driver;
+		//		js.executeScript("window.scrollBy(0,100)");
 		//get list of products
 		int productSize=order.getProducts().size();
-		 e.test.log(Status.INFO,"Product search successfully");
-		for(int i=0;i<productSize;i++)
-		{
-			String allProduct = order.getProducts().get(i).getText();
-			if(allProduct.equalsIgnoreCase(order.selectProduct))
+		e.test.log(Status.INFO,"Product search successfully");
+		//		for(int i=0;i<productSize;i++)
+		//		{
+		//			String allProduct = order.getProducts().get(i).getText();
+		//			if(allProduct.equalsIgnoreCase(order.selectProduct))
+		//
+		//				order.getProducts().get(i).click();
+		//			
+		//			//break;
+		//		}
+		//		
+		order.getSingleProduct().click();
 
-				order.getProducts().get(i).click();
+		e.test.log(Status.INFO,"Product Matches successfully");
+		order.UserWindowHandle(driver);	
+//		String windowTitle = driver.getTitle();
+//		Assert.assertEquals(windowTitle,order.newWindow,"Window navigate successfull");
+//		
+//		JavascriptExecutor js= (JavascriptExecutor) driver;
+//		js.executeScript("window.scrollBy(0,200)");
 			
-			//break;
-		}
-		 e.test.log(Status.INFO,"Product Matches successfully");
-		Thread.sleep(2000);
-		order.UserWindowHandle(driver);
 		WebElement ele= driver.findElement(By.id("quantity"));
 		Select sel=new Select(ele);
 		sel.selectByValue("2");
-		 e.test.log(Status.INFO,"Product quantity selected");
-		 
-		//click on add to cart
+		e.test.log(Status.INFO,"Product quantity selected");
+		
+		Thread.sleep(3000);
 		order.getAddToCart().click();
+		Thread.sleep(2000);
+		//order.getSkip().click();
+		//click on add to cart
+		
 
 		//click on cart
+		Thread.sleep(2000);
 		order.getCart().click();
+		
 		String actual = order.getSingleprize().getText();
 		int a=order.dataConversion(actual);
 		Integer actTotal=a*2;//for 2 product
-		
+
 		String actual1= order.getTotal().getText();
 		int expTotal=order.dataConversion(actual1);
-        assertEquals(expTotal,actTotal,"Assertion on Principal amount is not successfull");
-        e.test.log(Status.INFO,"Total Amount verified");
-        //click on proceed to by
-        order.getProceedToBy().click();
-        
-        
-        //click on use this address
-        order.getUseThisAddress().click();
-        e.test.log(Status.INFO," Done!!! Product Orderd completed");
+		assertEquals(expTotal,actTotal,"Assertion on Principal amount is not successfull");
+		e.test.log(Status.INFO,"Total Amount verified");
+		
+		//click on proceed to by
+		order.getProceedToBy().click();
+
+
+		//click on use this address
+		order.getUseThisAddress().click();
+		e.test.log(Status.INFO," Done!!! Product Orderd completed");
 	}
-	
+
 
 
 }

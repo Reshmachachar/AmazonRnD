@@ -4,10 +4,15 @@
 <listeners>
   <listener class-name="Utils.ExtentListeners">  </listener>
  </listeners>
-  <test name="Test">
+  <test  name="TestonChrome">
+  <parameter name="browser" value="chrome"></parameter>
     <classes>
-      <class name="TestCases.E2E_OrderTest"/>
-     
-    </classes>
-  </test> <!-- Test -->
+      <class name="TestCases.E2E_OrderTest"/> </classes>
+  </test>
+ <test  name="TestOnEdge">
+  <parameter name="browser" value="edge"></parameter>
+    <classes>
+      <class name="TestCases.E2E_OrderTest1"/>
+     </classes>
+  </test>   
 </suite> <!-- Suite -->

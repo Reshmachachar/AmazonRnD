@@ -77,8 +77,8 @@ public class BaseTest {
 		default :
 			System.err.println("Invalid Browser Name : ");
 		}
-		
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.manage().window().maximize();
 		wait = new WebDriverWait(driver,Duration.ofMillis(3000));
 		act=new Actions(driver);
